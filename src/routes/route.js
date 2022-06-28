@@ -18,13 +18,13 @@ let validate=function(value){
     if(value.trim()===""|| value===null) return false
     if(typeof value==="string" ||typeof value==="undefined")return false
     return true;
-
 }
 
 
 router.post('/functionup/colleges',async function(req,res){
     let collegeData=req.body
-
+    const{name ,fullName,logoLink }=collegeData
+    if(!validate(name))    
     let saveData=await  collegeDB.create(collegeData)
 
 })
