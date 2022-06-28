@@ -1,5 +1,5 @@
 const InternModel= require("../Models/InternModel")
-const {}=require("../Validator/validation")
+const validate=require("../Validator/validation")
 
 // { name: {mandatory}, email: {mandatory, valid email, unique}, mobile: {mandatory, valid mobile number, unique}, collegeId: {ObjectId, ref to college model, isDeleted: {boolean, default: false}}
 const createIntern = async function (req,res){
@@ -8,3 +8,4 @@ const createIntern = async function (req,res){
     if(!("name" in data ) || !("email" in data) || !("mobile" in data) || !("collegeId" in data)) return res.status(400).send({status:false,msg:"Don't Skip The Required Attributes ('name','email','mobile','collegeId') "})
     
 }
+module.exports.createIntern=createIntern

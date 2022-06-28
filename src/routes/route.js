@@ -4,9 +4,10 @@ const CollegeController= require("../controller/collegeController")
 const InternController=require("../controller/internController")
 
 
-// router.post("/functionup/colleges")
 
-// router.post("/functionup/interns" ,InternController)
+router.post('/functionup/colleges',CollegeController.createCollegeData)
+
+router.post("/functionup/interns" ,InternController.createIntern)
 
 
 
