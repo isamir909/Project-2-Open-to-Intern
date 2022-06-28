@@ -1,0 +1,24 @@
+{
+  "name": "project-2-internship-",
+  "version": "1.0.0",
+  "description": "project-2(internship)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isamir909/project-2-internship-.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/isamir909/project-2-internship-/issues"
+  },
+  "homepage": "https://github.com/isamir909/project-2-internship-#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.4.1",
+    "nodemon": "^2.0.18"
+  }
+}
