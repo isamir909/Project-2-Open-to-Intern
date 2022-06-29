@@ -5,7 +5,8 @@ let mongoose=require('mongoose')
 
 
 
-//validator in name A-z
+
+
 
 
 let createCollegeData = async function(req,res){
