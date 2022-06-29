@@ -3,12 +3,6 @@ let collegeModel=require('../Models/CollegeModel')
 let {isValid,isValidName}=require('../Validator/validation')
 let mongoose=require('mongoose')
 
-
-
-
-
-
-
 let createCollegeData = async function(req,res){
    try { 
     let collegeData=req.body 
