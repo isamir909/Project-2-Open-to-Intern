@@ -65,7 +65,7 @@ const getdetails = async function (req, res) {
       res.status(200).send({ status: true, data: data })
    }
    catch (err) {
-
+     res.status(500).send({status:false,msg:err.message})
    }
 }
 module.exports = { createCollegeData, getdetails }
