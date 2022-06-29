@@ -9,7 +9,7 @@ let createCollegeData = async function (req, res) {
       if (Object.keys(collegeData).length == 0) return res.status(400).send({ status: false, msg: "Body can not be empty " })
 
       if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" })
-      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" })
+      //if (!isValidName(fullName)) return res.status(400).send({ status: false, msg: "Pls Enter Valid fullName " })
 
       if (!isValid(name)) return res.status(400).send({ status: false, msg: "name is required field, please enter" })
       if (!isValidName(name)) return res.status(400).send({ status: false, msg: "please enter valid name(between A-Z or a-z)" })
