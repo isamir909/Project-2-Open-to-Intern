@@ -30,10 +30,11 @@ const createIntern = async function (req, res) {
         let checkuniqueNo = await internModel.findOne({ mobile: mobile })
         if (checkuniqueNo) return res.status(400).send({ status: false, msg: "Pls Enter Unique Mobile No." })
 
-        let cljId = await collegeModel.findOne({ name: lowerCollegeName }).select({ _id: 1 })
-        if (cljId.isDeleted == true) return res.status(400).send({ status: false, msg: "Sorry This College Is Deleted" })
+        let cljId = await collegeModel.findOne({ name: lowerCollegeName }).select({ _id: 1,isDeleted:1 })
         if (!cljId) return res.status(400).send({ status: false, msg: "Pls Enter Valid CollegName" })
-        data.collegeId = cljId
+        if (cljId.isDeleted == true) return res.status(400).send({ status: false, msg: "Sorry This College Is Deleted" })
+        let id= cljId._id
+        data.collegeId = id
 
         let createIntern = await internModel.create(data)
         res.send({ status: true, msg: "Intern Created", data: createIntern })
