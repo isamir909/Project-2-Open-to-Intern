@@ -5,6 +5,8 @@ const collegeSchema = new mongoose.Schema ({
         type: String,
         required : true,
         unique : true,
+        trim:true,
+        lowercase:true
     },
     fullName: {
         type: String,
@@ -19,10 +21,10 @@ const collegeSchema = new mongoose.Schema ({
         type : Boolean,
         default : false,
     },
-    interns:[{
+    interns:{
         type:ObjectId,
         ref:"InternDB"
-    }]
+    }
 }, {timestamps : true});
 
 module.exports = mongoose.model ('collegeDB', collegeSchema)
