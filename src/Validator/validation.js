@@ -12,7 +12,7 @@ const isValidEmail=(mail)=>{
     return true
 }
 const isValidMobile=(mobile)=>{
-    if(/^[0]?[789]\d{9}$/.test(mobile))
+    if(/^[0]?[6789]\d{9}$/.test(mobile))
     return true
 }
 module.exports={isValid,isValidName,isValidEmail,isValidMobile}

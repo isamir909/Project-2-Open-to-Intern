@@ -7,12 +7,14 @@ const createIntern = async function (req, res) {
     try {
         const data = req.body
         const { name, email, mobile, collegeName } = req.body
-
+       
         if (Object.keys(data).length == 0) return res.status(400).send({ status: false, msg: "Body should not be empty " })
         const lowerCollegeName = collegeName.toString().toLowerCase()
+
         if (!("name" in data) || !("email" in data) || !("mobile" in data) || !("collegeName" in data)) return res.status(400).send({ status: false, msg: "Don't Skip The Required Attributes ('name','email','mobile','collegeName') " })
 
         if (!isValid(name)) return res.status(400).send({ status: false, msg: "Don't Left name attribute empty" })
+        
         if (!isValidName(name)) return res.status(400).send({ status: false, msg: "Pls Enter Valid name" })
 
         if (!isValid(email)) return res.status(400).send({ status: false, msg: "Don't left email attribute empty" })
