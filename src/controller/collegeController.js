@@ -3,10 +3,12 @@ let collegeModel=require('../Models/CollegeModel')
 let {isValid,isValidName}=require('../Validator/validation')
 let mongoose=require('mongoose')
 
+
 let createCollegeData = async function(req,res){
    try { 
     let collegeData=req.body 
     const{name,fullName,logoLink }= collegeData
+
     let trimF=fullName.trim() ; let trimL=logoLink.trim();
     collegeData.fullName=trimF; collegeData.logoLink=trimL
     
@@ -41,18 +43,3 @@ let createCollegeData = async function(req,res){
      } 
      } 
 module.exports.createCollegeData=createCollegeData
-
-
-
-
-
-
-
-
-
-// ## GET /functionup/collegeDetails
-// Returns the college details for the requested college (Expect a query parameter by the name collegeName. This is anabbreviated college name. For example iith)
-// Returns the list of all interns who have applied for internship at this college.
-// The response structure should look like this
-
-
