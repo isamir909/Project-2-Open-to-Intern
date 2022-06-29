@@ -11,19 +11,17 @@ const collegeSchema = new mongoose.Schema ({
     fullName: {
         type: String,
         required : true,
+        trim:true
     }, 
     
     logoLink: {
         type :String,
         required : true,
+        trim:true
     },
     isDeleted : {
         type : Boolean,
         default : false,
-    },
-    interns:{
-        type:ObjectId,
-        ref:"InternDB"
     }
 }, {timestamps : true});
 
