@@ -12,18 +12,19 @@ let mongoose=require('mongoose')
 let createCollegeData = async function(req,res){
    try { 
     let collegeData=req.body 
-    const{name ,fullName,logoLink }=collegeData
-  
+    const{name,fullName,logoLink }= collegeData
+    let trimF=fullName.trim() ; let trimL=logoLink.trim();
+    collegeData.fullName=trimF; collegeData.logoLink=trimL
+    
     if(!isValid(fullName)) return res.status(400).send({status:false, msg:"fullName is required"})
-    if(!isValid(fullName)) return res.status(400).send({status:false, msg:"fullName is required"})
- 
+    if(!isValidName(fullName)) return res.status(400).send({status:false, msg:" please enter valir full name"})
   
     if(Object.keys(collegeData).length==0) return res.status(400).send({status:false, msg:"Body can not be empty "})
 
     if(!isValid(name)) return res.status(400).send({status:false,msg:"name is required field, please enter"})
-    if(!isValidName(name)) return res.status(400).send({status:false,msg:"please enter valid name(between A-Z or a-z)"})   
-  
-    let Lname=name.toString().toLowerCase()
+    if(!isValidName(name.trim())) return res.status(400).send({status:false,msg:"please enter valid name(between A-Z or a-z)"})   
+ 
+    let Lname=name.toString().toLowerCase().trim()
     collegeData.name=Lname
     
     let checkNameNotDeleted= await collegeModel.find({name:name,isDeleted:false})
@@ -46,3 +47,18 @@ let createCollegeData = async function(req,res){
      } 
      } 
 module.exports.createCollegeData=createCollegeData
+
+
+
+
+
+
+
+
+
+// ## GET /functionup/collegeDetails
+// Returns the college details for the requested college (Expect a query parameter by the name collegeName. This is anabbreviated college name. For example iith)
+// Returns the list of all interns who have applied for internship at this college.
+// The response structure should look like this
+
+
