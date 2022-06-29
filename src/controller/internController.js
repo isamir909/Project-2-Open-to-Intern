@@ -8,8 +8,8 @@ const createIntern = async function (req, res) {
         const data = req.body
         const { name, email, mobile, collegeName } = req.body
 
-        const lowerCollegeName = collegeName.toString().toLowerCase()
         if (Object.keys(data).length == 0) return res.status(400).send({ status: false, msg: "Body should not be empty " })
+        const lowerCollegeName = collegeName.toString().toLowerCase()
         if (!("name" in data) || !("email" in data) || !("mobile" in data) || !("collegeName" in data)) return res.status(400).send({ status: false, msg: "Don't Skip The Required Attributes ('name','email','mobile','collegeName') " })
 
         if (!isValid(name)) return res.status(400).send({ status: false, msg: "Don't Left name attribute empty" })
@@ -30,10 +30,11 @@ const createIntern = async function (req, res) {
         let checkuniqueNo = await internModel.findOne({ mobile: mobile })
         if (checkuniqueNo) return res.status(400).send({ status: false, msg: "Pls Enter Unique Mobile No." })
 
-        let cljId = await collegeModel.findOne({ name: lowerCollegeName }).select({ _id: 1 })
-        if (cljId.isDeleted == true) return res.status(400).send({ status: false, msg: "Sorry This College Is Deleted" })
+        let cljId = await collegeModel.findOne({ name: lowerCollegeName }).select({ _id: 1,isDeleted:1 })
         if (!cljId) return res.status(400).send({ status: false, msg: "Pls Enter Valid CollegName" })
-        data.collegeId = cljId
+        if (cljId.isDeleted == true) return res.status(400).send({ status: false, msg: "Sorry This College Is Deleted" })
+        let id= cljId._id
+        data.collegeId = id
 
         let createIntern = await internModel.create(data)
         res.send({ status: true, msg: "Intern Created", data: createIntern })
