@@ -8,14 +8,13 @@ let createCollegeData = async function (req, res) {
       let collegeData = req.body
       const { name, fullName, logoLink } = collegeData
 
-      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" })
-      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" })
-
-
       if (Object.keys(collegeData).length == 0) return res.status(400).send({ status: false, msg: "Body can not be empty " })
 
+      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" })
+      if (!isValid(logoLink)) return res.status(400).send({ status: false, msg: "logoLink is required" })
+
       if (!isValid(name)) return res.status(400).send({ status: false, msg: "name is required field, please enter" })
-    //   if (!isValidName(name)) return res.status(400).send({ status: false, msg: "please enter valid name(between A-Z or a-z)" })
+      if (!isValidName(name)) return res.status(400).send({ status: false, msg: "please enter valid name(between A-Z or a-z)" })
 
       let checkNameNotDeleted = await collegeModel.find({ name: name, isDeleted: false })
       let checkNameifDeleted = await collegeModel.find({ name: name, isDeleted: true })
