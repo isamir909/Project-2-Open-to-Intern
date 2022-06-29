@@ -46,24 +46,23 @@ const getdetails = async function (req, res) {
       console.log(query1)
 
       if (!isValid(query1)) return res.status(400).send({ status: false, msg: "Dont Left The Query Tag Value Empty" })
-      let getCollegedetails = await collegeModel.findOne({ name: query1 },{name:1,fullName:1,logoLink:1,isDeleted:1}).lean()
-      if (!getCollegedetails) return res.status(400).send({ status: true, msg: "Sorrry!!! This College Name Doesn't Exists" })
+      let getCollegedetails = await collegeModel.findOne({ name: query1 })
+      if (!getCollegedetails) return res.status(404).send({ status: true, msg: "Sorrry!!! This College Name Doesn't Exists" })
       if (!getCollegedetails.isDeleted ==false) return res.status(400).send({ status: false, msg: "Sorry!!! This College Is Deleted" })
       let cljId = getCollegedetails._id
 
       let getInternDetails = await internModel.find({ collegeId: cljId }).select({ name: 1, email: 1, mobile: 1 })
-      if (getInternDetails.length==0) return res.status(404).send({ status: false, msg: "Sorry!!!! No Interns Found " })
-      getCollegedetails.interns=getInternDetails
-      delete getCollegedetails._id
-      delete getCollegedetails.isDeleted
-      // let data = {
-      //    name: getCollegedetails.name,o8
-      //    fullName: getCollegedetails.fullName,
-      //    logoLink: getCollegedetails.logoLink,
-      //    interns: getInternDetails.length ? getInternDetails : { status: false, message: "Sorry No Interns Found" }
-      // }
+      if (getInternDetails.length==0) return res.status(404).send({ status: false, msg: "Sorry!!!! This College Exists But No Interns Found "})
+      
+      
+      let data = {
+         name: getCollegedetails.name,
+         fullName: getCollegedetails.fullName,
+         logoLink: getCollegedetails.logoLink,
+         interns: getInternDetails.length ? getInternDetails : { status: false, message: "Sorry No Interns Found" }
+      }
 
-      res.status(200).send({ status: true, data: getCollegedetails })
+      res.status(200).send({ status: true, data: data })
    }
    catch (err) {
       console.log(err)
