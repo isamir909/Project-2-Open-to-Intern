@@ -3,7 +3,6 @@ const isValid= function(value){
     if (typeof value==="string" && value.trim().length===0) return false
     if(value==null)return false 
     return true
-    
 }
 const isValidName=(name)=>{
     if( /^[-a-zA-Z_:,.' ']{1,100}$/.test(name))
