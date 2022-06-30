@@ -2,8 +2,6 @@ const internModel = require("../Models/InternModel")
 let collegeModel = require('../Models/CollegeModel')
 const { isValid, isValidName, isValidEmail, isValidMobile } = require("../Validator/validation")
 
-// || !("email" in data) || !("mobile" in data) || !("collegeName" in data)) return res.status(400).send({ status: false, msg: "Don't Skip The Required Attributes ('name','email','mobile','collegeName') " })
-
 const createIntern = async function (req, res) {
     try {
         const data = req.body
