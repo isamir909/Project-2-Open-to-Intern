@@ -47,6 +47,7 @@ const getdetails = async function (req, res) {
       let getCollegedetails = await collegeModel.findOne({ name: query1 },{name:1,fullName:1,logoLink:1,isDeleted:1}).lean() 
 
       if (!getCollegedetails) return res.status(404).send({ status: true, msg: "Sorrry!!! This College Name Doesn't Exists" })
+      
       if (getCollegedetails.isDeleted === true) return res.status(400).send({ status: false, msg: "Sorry!!! This College Is Deleted" })
       let cljId = getCollegedetails._id
 
