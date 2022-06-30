@@ -9,14 +9,18 @@ let createCollegeData = async function (req, res) {
 
       if (Object.keys(collegeData).length == 0) return res.status(400).send({ status: false, msg: "Body can not be empty " })
 
-      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" })
+      if(!("name" in collegeData)) return res.status(400).send({status:false,msg:"Dont Skip name Attribute"})
+      if(!("fullName" in collegeData)) return res.status(400).send({status:false,msg:"Dont Skip fullName Attribute"})
+      if(!("logoLink" in collegeData)) return res.status(400).send({status:false,msg:"Dont Skip logoLink Attribute"})
+
+      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "Don't Left Fullname Attribute empty" })
       if (!isValidFName(fullName)) return res.status(400).send({ status: false, msg: "Pls Enter Valid fullName " })
     
-      if (!isValid(logoLink)) return res.status(400).send({ status: false, msg: "logoLink is required" })
+      if (!isValid(logoLink)) return res.status(400).send({ status: false, msg: "Don't Left Logolink Attribute empty" })
       if (!isValidUrl(logoLink)) return res.status(400).send({ status: false, msg: "Pls Enter Valid logoLink " })
 
 
-      if (!isValid(name)) return res.status(400).send({ status: false, msg: "name is required field, please enter" })
+      if (!isValid(name)) return res.status(400).send({ status: false, msg: "Don't Left Name Attribute empty" })
       if (!isValidName(name)) return res.status(400).send({ status: false, msg: "please enter valid name(between A-Z or a-z)" })
 
 
