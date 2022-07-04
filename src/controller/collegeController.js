@@ -9,14 +9,18 @@ let createCollegeData = async function (req, res) {
 
       if (Object.keys(collegeData).length == 0) return res.status(400).send({ status: false, msg: "Body can n`ot be empty " })
 
-      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "fullName is required" })
+      if(!("name" in collegeData)) return res.status(400).send({status:false,msg:"Dont Skip name Attribute"})
+      if(!("fullName" in collegeData)) return res.status(400).send({status:false,msg:"Dont Skip fullName Attribute"})
+      if(!("logoLink" in collegeData)) return res.status(400).send({status:false,msg:"Dont Skip logoLink Attribute"})
+
+      if (!isValid(fullName)) return res.status(400).send({ status: false, msg: "Don't Left Fullname Attribute empty" })
       if (!isValidFName(fullName)) return res.status(400).send({ status: false, msg: "Pls Enter Valid fullName " })
     
-      if (!isValid(logoLink)) return res.status(400).send({ status: false, msg: "logoLink is required" })
+      if (!isValid(logoLink)) return res.status(400).send({ status: false, msg: "Don't Left Logolink Attribute empty" })
       if (!isValidUrl(logoLink)) return res.status(400).send({ status: false, msg: "Pls Enter Valid logoLink " })
 
 
-      if (!isValid(name)) return res.status(400).send({ status: false, msg: "name is required field, please enter" })
+      if (!isValid(name)) return res.status(400).send({ status: false, msg: "Don't Left Name Attribute empty" })
       if (!isValidName(name)) return res.status(400).send({ status: false, msg: "please enter valid name(between A-Z or a-z)" })
 
       let checkNameNotDeleted = await collegeModel.findOne({ name: name, isDeleted: false })
@@ -44,8 +48,7 @@ const getdetails = async function (req, res) {
       const query1 = query.collegeName.trim().toLowerCase()
 
       if (!isValid(query1)) return res.status(400).send({ status: false, msg: "Dont Left The Query Tag Value Empty" })
-      let getCollegedetails = await collegeModel.findOne({ name: query1 },{name:1,fullName:1,logoLink:1,isDeleted:1}).lean() 
-
+      let getCollegedetails = await collegeModel.findOne({ name: query1 },{name:1,fullName:1,logoLink:1,isDeleted:1}).lean()//.toObject//.toStringify()
       if (!getCollegedetails) return res.status(404).send({ status: true, msg: "Sorrry!!! This College Name Doesn't Exists" })
       
       if (getCollegedetails.isDeleted === true) return res.status(400).send({ status: false, msg: "Sorry!!! This College Is Deleted" })
