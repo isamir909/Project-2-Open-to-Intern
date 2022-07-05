@@ -3,8 +3,13 @@ let collegeModel = require('../Models/CollegeModel')
 let { isValid, isValidName,isValidFName,isValidUrl } = require('../Validator/validation')
 
 let createCollegeData = async function (req, res) {
+   res.setHeader('Access-Control-Allow-Origin','*')
    try {
+    
+
       let collegeData = req.body
+      let collegedData = req.files
+      
       const { name, fullName, logoLink } = collegeData
 
       if (Object.keys(collegeData).length == 0) return res.status(400).send({ status: false, msg: "Body can n`ot be empty " })
@@ -25,7 +30,7 @@ let createCollegeData = async function (req, res) {
       if (checkNameNotDeleted) return res.status(400).send({ status: false, msg: "college name is already present " })
       if (checkNameifDeleted) return res.status(400).send({ status: false, msg: "data with this name already present but it is deleted ,undo the delete" })
 
-      let saveData = await collegeModel.create(collegeData)
+      let saveData = await collegeModel.create(collegeData,collegedData)
       res.status(201).send({ status: true, Data: saveData })
 
    }
@@ -38,6 +43,7 @@ let createCollegeData = async function (req, res) {
 
 
 const getdetails = async function (req, res) {
+   res.setHeader('Access-Control-Allow-Origin','*')
    try {
       const query = req.query
       if (Object.keys(query).length == 0) return res.status(400).send({ status: false, msg: "Don't Left Query Params Empty" })
