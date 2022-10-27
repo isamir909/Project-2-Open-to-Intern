@@ -25,6 +25,10 @@ let createCollegeData = async function (req, res) {
       if (checkNameNotDeleted) return res.status(400).send({ status: false, msg: "college  is already registered " })
     
       let saveData = await collegeModel.create(collegeData)
+      saveData=saveData.toObject()
+      for(ele of ["createdAt","updatedAt","__v","_id"]){
+          delete saveData[ele]
+      }
       res.status(201).send({ status: true, Data: saveData })
 
    }
@@ -45,20 +49,20 @@ const getDetails = async function (req, res) {
       const query1 = query.collegeName.trim().toLowerCase()
 
       if (!isValid(query1)) return res.status(400).send({ status: false, msg: "Dont Left The Query Tag Value Empty" })
-      let getCollegedetails = await collegeModel.findOne({ name: query1 },{name:1,fullName:1,logoLink:1,isDeleted:1}).lean() 
+      let getCollegeDetails = await collegeModel.findOne({ name: query1 },{name:1,fullName:1,logoLink:1,isDeleted:1}).lean() 
 
-      if (!getCollegedetails) return res.status(404).send({ status: true, msg: "Sorrry!!! This College Name Doesn't Exists" })
+      if (!getCollegeDetails) return res.status(404).send({ status: true, msg: " This College Name Doesn't Exists" })
       
-      let cljId = getCollegedetails._id
+      let SelectCollegeId = getCollegeDetails._id
 
-      let getInternDetails = await internModel.find({ collegeId: cljId }).select({ name: 1, email: 1, mobile: 1 })
+      let getInternDetails = await internModel.find({ collegeId: SelectCollegeId }).select({ name: 1, email: 1, mobile: 1 })
       if (getInternDetails.length==0) return res.status(404).send({ status: false,msg: "No Interns Found"})
 
-      getCollegedetails.interns=getInternDetails
-      delete getCollegedetails._id
-      delete getCollegedetails.isDeleted
+      getCollegeDetails.interns=getInternDetails
+      delete getCollegeDetails._id
+      delete getCollegeDetails.isDeleted
      
-      res.status(200).send({ status: true, data: getCollegedetails })
+      res.status(200).send({ status: true, data: getCollegeDetails })
    }
    catch (err) {
     

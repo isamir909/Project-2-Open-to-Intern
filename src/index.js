@@ -1,5 +1,5 @@
 const express = require("express");
-const multer = require("multer");
+
 const route = require("./routes/route");
 
 const bodyParser = require('body-parser')
@@ -8,7 +8,7 @@ const {default:mongoose}=require('mongoose')
 const app=express();
 
 app.use(bodyParser.json());
-app.use(multer().any());
+
 app.use(bodyParser.urlencoded({extended:true}))
 
 mongoose.connect("mongodb+srv://samirlohiya909:Lohiya123@samirlohiya.nszppy8.mongodb.net/group62Database?retryWrites=true&w=majority", {
