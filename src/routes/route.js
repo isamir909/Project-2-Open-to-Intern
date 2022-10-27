@@ -11,8 +11,10 @@ router.post('/functionup/colleges',CollegeController.createCollegeData)
 router.post("/functionup/interns" ,InternController.createIntern)
 
 // .....................Get College Details With All Interns.....................//
-router.get("/functionup/collegeDetails",CollegeController.getdetails)
+router.get("/functionup/collegeDetails",CollegeController.getDetails)
 
+//....................in case of invalid URL.....(static route)...../
+router.get('*',function (req,res){res.status(404).send({msg:"this page does not exist"})})
 
 
 module.exports=router
